@@ -30,7 +30,8 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [x] Demonstrate bounded per-session rate limiting (single-process reference only).
 - [x] Document replay limitations and server-issued one-time nonce requirements.
 - [x] Document what must never be placed in browser code.
-- [ ] Add executable HTTP-framework integration tests and a production shared-store adapter.
+- [x] Add executable framework-neutral Fetch API receiver tests.
+- [ ] Add a production shared-store rate-limit adapter.
 
 ## Phase 4 — Translator specification and parser
 - [x] Define the initial source grammar and Electa output strategy in docs/TRANSLATOR-SPEC.md.
