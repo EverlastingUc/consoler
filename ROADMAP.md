@@ -7,7 +7,7 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [x] Document security boundaries and limitations.
 - [x] Add versioned starter configuration with Electa as the default target.
 - [x] Establish a dependency-free Node.js project scaffold.
-- [ ] Review the initial documentation against the implementation brief.
+- [x] Review the initial documentation against the implementation brief.
 
 ## Phase 1 — Threat model and API design
 - [x] Draft the initial threat model in docs/THREAT-MODEL.md.
@@ -55,10 +55,10 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [ ] Do not label a target supported before its tests pass.
 
 ## Phase 7 — CLI and configuration
-- [ ] Parse and validate .consoler.console.
-- [ ] Add explicit source/target selection and output-file handling.
-- [ ] Add useful diagnostics and non-zero exit codes on errors.
-- [ ] Require explicit user action to execute generated programs, if execution support is ever added.
+- [x] Parse and validate .consoler.console with strict version, key, source, and target checks.
+- [x] Add explicit config selection and output-file handling to the translation CLI.
+- [x] Add concise diagnostics and non-zero exit codes on errors.
+- [x] Keep translation output-only; the CLI never executes generated programs.
 
 ## Phase 8 — Hardening and release
 - [ ] Run the full test suite and security-focused tests.
