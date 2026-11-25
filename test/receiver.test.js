@@ -10,10 +10,13 @@ const signal = {
 };
 
 function makeRequest(body = signal, options = {}) {
+  const method = options.method ?? "POST";
   return new Request("https://example.test/signals", {
-    method: options.method ?? "POST",
+    method,
     headers: options.headers ?? { "content-type": "application/json" },
-    body: options.rawBody ?? JSON.stringify(body)
+    body: method === "GET" || method === "HEAD"
+      ? undefined
+      : (options.rawBody ?? JSON.stringify(body))
   });
 }
 
