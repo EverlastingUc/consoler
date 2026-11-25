@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { ConsolerSyntaxError, parseConsoler } from "../src/translator/parser.js";
 
 const LF = String.fromCharCode(10);
+const BS = String.fromCharCode(92);
 
 test("parses one output statement and freezes its typed AST", () => {
   const program = parseConsoler('console.log("Hii");');
@@ -17,7 +18,8 @@ test("parses one output statement and freezes its typed AST", () => {
 });
 
 test("parses multiple statements, whitespace, quote styles, and supported escapes", () => {
-  const program = parseConsoler(String.raw\`  console.log('a\n\t\\b');\` + LF + 'console.log("it\\'s okay")');
+  const source = "  console.log('a" + BS + "n" + BS + "t" + BS + BS + "b');" + LF + "console.log(\\"it's okay\\")";
+  const program = parseConsoler(source);
   assert.equal(program.statements.length, 2);
   assert.equal(program.statements[0].value, "a\n\t\\b");
   assert.equal(program.statements[1].value, "it's okay");
@@ -41,7 +43,10 @@ test("rejects unsupported syntax with stable source locations", () => {
 });
 
 test("rejects invalid escapes, raw newlines, and unterminated strings", () => {
-  for (const source of [String.raw\`console.log("\q")\`, 'console.log("a' + LF + 'b")', 'console.log("unterminated)']) {
+  const invalidEscape = 'console.log("' + BS + 'q")';
+  const rawNewline = 'console.log("a' + LF + 'b")';
+  const unterminated = 'console.log("unterminated)';
+  for (const source of [invalidEscape, rawNewline, unterminated]) {
     assert.throws(() => parseConsoler(source), ConsolerSyntaxError);
   }
 });
