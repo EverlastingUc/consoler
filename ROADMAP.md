@@ -26,10 +26,11 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [ ] Add server-side receiver examples and integration tests in Phase 3.
 
 ## Phase 3 — Server-side examples
-- [ ] Provide server-side validation and authorization examples.
-- [ ] Demonstrate rate limiting and replay protection where relevant.
-- [ ] Demonstrate how to ignore, validate, or rate-limit client integrity signals.
-- [ ] Document what must never be placed in browser code.
+- [x] Provide server-side signal validation and authorization integration examples.
+- [x] Demonstrate bounded per-session rate limiting (single-process reference only).
+- [x] Document replay limitations and server-issued one-time nonce requirements.
+- [x] Document what must never be placed in browser code.
+- [ ] Add executable HTTP-framework integration tests and a production shared-store adapter.
 
 ## Phase 4 — Translator specification and parser
 - [x] Define the initial source grammar and Electa output strategy in docs/TRANSLATOR-SPEC.md.
