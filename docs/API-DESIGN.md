@@ -87,7 +87,7 @@ A signal must never grant access, bypass validation, or trigger destructive/puni
 
 ## 7. Server reference implementation
 
-Optional server entry points are exported as consol er/server and consol er/server/rate-limit. They validate a strict allowlisted signal shape and provide a bounded single-process fixed-window limiter. The limiter requires a server-authenticated principal. It is not distributed and is not a replacement for a production shared-store or gateway limiter. Client timestamps are never proof of freshness; applications needing replay resistance must use server-issued, session-bound, one-time nonces.
+Optional server entry points are exported as `consoler/server` and `consoler/server/rate-limit`. They validate a strict allowlisted signal shape and provide a bounded single-process fixed-window limiter. The limiter requires a server-authenticated principal. It is not distributed and is not a replacement for a production shared-store or gateway limiter. Client timestamps are never proof of freshness; applications needing replay resistance must use server-issued, session-bound, one-time nonces.
 
 ## 8. Acceptance tests
 
