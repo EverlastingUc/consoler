@@ -11,18 +11,26 @@ permissions:
 
 jobs:
   test:
-    name: Node.js ${{ matrix.node-version }} tests
+    name: Node.js \${{ matrix.node-version }} tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         node-version: [20, 22, 24]
     steps:
-      - name: Check out repository
+      - name: Check out Consoler
         uses: actions/checkout@v4
+      - name: Check out Neutron Electa reference runtime
+        uses: actions/checkout@v4
+        with:
+          repository: EverlastingUc/Neutron
+          ref: 920956cc28133bcf44c6817d296121ce2ab6264b
+          path: neutron
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: \${{ matrix.node-version }}
       - name: Run test suite
         run: npm test
+        env:
+          NEUTRON_PATH: \${{ github.workspace }}/neutron
