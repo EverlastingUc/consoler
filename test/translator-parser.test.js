@@ -18,7 +18,8 @@ test("parses one output statement and freezes its typed AST", () => {
 });
 
 test("parses multiple statements, whitespace, quote styles, and supported escapes", () => {
-  const source = "  console.log('a" + BS + "n" + BS + "t" + BS + BS + "b');" + LF + "console.log(\\"it's okay\\")";
+  const source = "  console.log('a" + BS + "n" + BS + "t" + BS + BS + "b');" + LF
+    + "console.log(" + '"' + "it's okay" + '"' + ")";
   const program = parseConsoler(source);
   assert.equal(program.statements.length, 2);
   assert.equal(program.statements[0].value, "a\n\t\\b");
