@@ -27,10 +27,17 @@
     "./translator/electa": {
       "types": "./src/translator/electa.d.ts",
       "import": "./src/translator/electa.js"
+    },
+    "./config": {
+      "types": "./src/config.d.ts",
+      "import": "./src/config.js"
     }
   },
   "scripts": {
     "test": "node --test test/*.test.js"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "bin": {
+    "consoler": "./bin/consoler.js"
+  }
 }
