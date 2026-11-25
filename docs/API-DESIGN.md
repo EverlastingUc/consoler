@@ -85,7 +85,11 @@ A signal must never grant access, bypass validation, or trigger destructive/puni
 - Callback throws: contain the exception so it does not crash the host application; optionally surface a development diagnostic without leaking signal data.
 - dispose called repeatedly: safe and idempotent.
 
-## 7. Acceptance tests
+## 7. Server reference implementation
+
+Optional server entry points are exported as consol er/server and consol er/server/rate-limit. They validate a strict allowlisted signal shape and provide a bounded single-process fixed-window limiter. The limiter requires a server-authenticated principal. It is not distributed and is not a replacement for a production shared-store or gateway limiter. Client timestamps are never proof of freshness; applications needing replay resistance must use server-issued, session-bound, one-time nonces.
+
+## 8. Acceptance tests
 
 The implementation must test:
 - callback receives a correctly versioned signal;
@@ -96,6 +100,6 @@ The implementation must test:
 - no global event listeners or browser inspection APIs are installed;
 - signal payload contains no automatically collected page or user data.
 
-## 8. Review decision
+## 9. Review decision
 
 This proposal intentionally avoids unreliable anti-DevTools or anti-tamper detection. Before implementation, finalize the invalid-input contract and decide whether a server-side reference receiver belongs in this repository or in examples only.
