@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,14 +54,15 @@ test("CLI refuses to overwrite output unless --force is explicit", async (t) => 
 
 test("CLI accepts explicit config and output paths", async (t) => {
   const cwd = await fixture(t);
+  await mkdir(path.join(cwd, "generated"));
   await writeFile(path.join(cwd, "input.js"), 'console.log("ok");');
   const result = run(cwd, [
     "translate", "input.js",
     "--config", ".consoler.console",
     "--out", "generated/output.el"
   ]);
-  assert.equal(result.status, 1);
-  assert.match(result.stderr, /ENOENT|no such file/i);
+  assert.equal(result.status, 0, result.stderr);
+  assert.ok((await readFile(path.join(cwd, "generated/output.el"), "utf8")).length > 0);
 });
 
 test("CLI rejects unsupported syntax and unknown options", async (t) => {
