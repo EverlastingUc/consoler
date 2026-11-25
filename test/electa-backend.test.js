@@ -65,7 +65,7 @@ test("enforces the generated source ceiling", () => {
   const program = {
     type: "Program",
     sourceLanguage: "consoler-js",
-    statements: [{type:"OutputStatement",value:"x".repeat(10_000),line:1,column:1}]
+    statements: [{type:"OutputStatement",value:"x".repeat(1_048_577),line:1,column:1}]
   };
   assert.throws(() => emitElecta(program), error => error instanceof ConsolerTranslationError && error.code === "T001");
 });
