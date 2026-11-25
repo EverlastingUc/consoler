@@ -4,7 +4,7 @@ Consoler signals are untrusted telemetry. Authenticate requests independently. N
 
 ## Validate the payload
 
-The optional consol er/server entry point validates a strict version 1 allowlist and returns a fresh frozen copy. Unknown fields are rejected to prevent accidental inclusion of tokens or free-form content. The client timestamp is data only; it does not prove freshness.
+The optional `consoler/server` entry point validates a strict version 1 allowlist and returns a fresh frozen copy. Unknown fields are rejected to prevent accidental inclusion of tokens or free-form content. The client timestamp is data only; it does not prove freshness.
 
 ```js
 import { validateConsolerSignal } from "consoler/server";
