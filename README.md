@@ -62,7 +62,7 @@ Consoler will **not** intercept or replace the browser's native DevTools console
 - No stealth, persistence, anti-analysis evasion, data destruction, denial-of-service behavior, or automatic execution of generated code.
 - Security features must be opt-in, documented, privacy-conscious, and removable.
 
-Read SECURITY.md and docs/THREAT-MODEL.md before integrating security features.
+Read SECURITY.md, docs/THREAT-MODEL.md, and docs/API-DESIGN.md before integrating security features. The initial source grammar and Electa encoding design are in docs/TRANSLATOR-SPEC.md.
 
 ## Development
 
