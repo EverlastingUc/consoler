@@ -1,6 +1,6 @@
 # Defensive API Design
 
-**Status:** Phase 1 proposal. This document is a design contract, not an implemented API.
+**Status:** Implemented baseline for the minimal client API in `src/index.js`; broader security features remain unimplemented.
 
 ## 1. Design constraints
 
@@ -81,7 +81,7 @@ A signal must never grant access, bypass validation, or trigger destructive/puni
 ## 6. Failure behavior
 
 - Missing callback: no-op.
-- Invalid signal arguments: reject with a deterministic, documented error or return a typed result; final choice must be fixed before implementation.
+- Invalid options throw `TypeError` during construction. When a callback is configured, invalid signal kinds, detail codes, and page IDs throw `TypeError` before callback invocation. With no callback, reporting is a no-op.
 - Callback throws: contain the exception so it does not crash the host application; optionally surface a development diagnostic without leaking signal data.
 - dispose called repeatedly: safe and idempotent.
 
