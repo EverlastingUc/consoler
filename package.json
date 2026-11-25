@@ -23,6 +23,10 @@
     "./translator/parser": {
       "types": "./src/translator/parser.d.ts",
       "import": "./src/translator/parser.js"
+    },
+    "./translator/electa": {
+      "types": "./src/translator/electa.d.ts",
+      "import": "./src/translator/electa.js"
     }
   },
   "scripts": {
