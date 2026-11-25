@@ -80,6 +80,31 @@ Consoler will **not** intercept or replace the browser's native DevTools console
 
 Read SECURITY.md, docs/THREAT-MODEL.md, and docs/API-DESIGN.md before integrating security features. The initial source grammar and Electa encoding design are in docs/TRANSLATOR-SPEC.md.
 
+## Server signal receiver
+
+A framework-neutral Fetch API handler is available from `consoler/server/receiver`. The host application must provide authentication middleware, a rate limiter, and a signal persistence callback:
+
+```js
+import { createSignalReceiver } from "consoler/server/receiver";
+import { createSignalRateLimiter } from "consoler/server/rate-limit";
+
+const receiveSignal = createSignalReceiver({
+  authenticate: async (request) => {
+    // Verify the application's session/token using server-owned logic.
+    return await getAuthenticatedUserId(request);
+  },
+  rateLimiter: createSignalRateLimiter({ limit: 30, windowMs: 60_000 }),
+  onSignal: async (signal, { principal }) => {
+    await saveSecurityTelemetry({ signal, principal });
+  },
+  maxBodyBytes: 4096
+});
+
+// Mount receiveSignal on a POST route in the host framework.
+```
+
+The receiver enforces POST, JSON content type, bounded body size, schema validation, authenticated-principal rate limiting, and generic failure responses. The application still owns CSRF/origin checks, authentication correctness, durable storage, retention, and distributed rate limiting. The in-memory limiter is single-process only.
+
 ## Defensive client API (implemented baseline)
 
 ```js
@@ -109,7 +134,7 @@ Requirements: Node.js 20 or newer.
 npm test
 ```
 
-There are no runtime dependencies. The minimal client API has Node.js tests under test/. Run them locally with `npm test`; The test suite includes unit tests, CLI filesystem-safety tests, and reference-runtime conformance tests in CI.
+There are no runtime dependencies. The minimal client API has Node.js tests under test/. Run them locally with `npm test`; The test suite includes unit tests, CLI filesystem-safety tests, authenticated HTTP receiver tests, and reference-runtime conformance tests in CI.
 
 ## Non-goal
 
