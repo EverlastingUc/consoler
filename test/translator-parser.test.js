@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { ConsolerSyntaxError, parseConsoler } from "../src/translator/parser.js";
 
+const LF = String.fromCharCode(10);
+
 test("parses one output statement and freezes its typed AST", () => {
   const program = parseConsoler('console.log("Hii");');
   assert.equal(program.type, "Program");
@@ -15,9 +17,9 @@ test("parses one output statement and freezes its typed AST", () => {
 });
 
 test("parses multiple statements, whitespace, quote styles, and supported escapes", () => {
-  const program = parseConsoler("  console.log('a\\n\\t\\\\b');\\nconsole.log(\"it's okay\")");
+  const program = parseConsoler(String.raw\`  console.log('a\n\t\\b');\` + LF + 'console.log("it\\'s okay")');
   assert.equal(program.statements.length, 2);
-  assert.equal(program.statements[0].value, "a\\n\\t\\\\b");
+  assert.equal(program.statements[0].value, "a\n\t\\b");
   assert.equal(program.statements[1].value, "it's okay");
   assert.equal(program.statements[1].line, 2);
 });
@@ -33,13 +35,13 @@ test("rejects unsupported syntax with stable source locations", () => {
     error => error instanceof ConsolerSyntaxError && error.code === "C008" && error.line === 1
   );
   assert.throws(
-    () => parseConsoler("\\nalert('x')"),
+    () => parseConsoler(LF + "alert('x')"),
     error => error instanceof ConsolerSyntaxError && error.code === "C002" && error.line === 2
   );
 });
 
 test("rejects invalid escapes, raw newlines, and unterminated strings", () => {
-  for (const source of ['console.log("\\q")', 'console.log("a\\nb")', 'console.log("unterminated)']) {
+  for (const source of [String.raw\`console.log("\q")\`, 'console.log("a' + LF + 'b")', 'console.log("unterminated)']) {
     assert.throws(() => parseConsoler(source), ConsolerSyntaxError);
   }
 });
