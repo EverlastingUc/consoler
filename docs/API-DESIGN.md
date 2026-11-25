@@ -1,6 +1,6 @@
 # Defensive API Design
 
-**Status:** The minimal client API and framework-neutral server validation/rate-limit reference utilities are implemented. Production shared-store integration and HTTP-framework examples remain future work.
+**Status:** The minimal client API and framework-neutral server validation/rate-limit reference utilities are implemented. A framework-neutral Fetch API receiver and executable HTTP-boundary tests are implemented. A production shared-store rate-limit adapter remains future work.
 
 ## 1. Design constraints
 
@@ -87,7 +87,9 @@ A signal must never grant access, bypass validation, or trigger destructive/puni
 
 ## 7. Server reference implementation
 
-Optional server entry points are exported as `consoler/server` and `consoler/server/rate-limit`. They validate a strict allowlisted signal shape and provide a bounded single-process fixed-window limiter. The limiter requires a server-authenticated principal. It is not distributed and is not a replacement for a production shared-store or gateway limiter. Client timestamps are never proof of freshness; applications needing replay resistance must use server-issued, session-bound, one-time nonces.
+Optional server entry points are exported as `consoler/server`, `consoler/server/rate-limit`, and `consoler/server/receiver`. The receiver enforces POST, JSON content type, bounded request bodies, authentication through an application-supplied callback, strict signal validation, and an application-supplied rate limiter. It accepts an application callback for persistence. The bundled fixed-window limiter is bounded but single-process only. The limiter requires a server-authenticated principal. It is not distributed and is not a replacement for a production shared-store or gateway limiter. Client timestamps are never proof of freshness; applications needing replay resistance must use server-issued, session-bound, one-time nonces.
+
+The receiver does not implement application authentication, CSRF/origin policy, durable storage, or distributed rate limiting. Mount it only behind the host application's correctly configured authentication and request-origin protections. It never treats a signal as authorization evidence.
 
 ## 8. Acceptance tests
 
