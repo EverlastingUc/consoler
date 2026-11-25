@@ -34,10 +34,11 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 
 ## Phase 4 — Translator specification and parser
 - [x] Define the initial source grammar and Electa output strategy in docs/TRANSLATOR-SPEC.md.
-- [ ] Define the supported JavaScript-like grammar and semantics.
-- [ ] Build a parser and a small, typed intermediate representation.
-- [ ] Reject unsupported syntax with source locations.
-- [ ] Never use eval or execute input during translation.
+- [x] Define the supported JavaScript-like grammar and semantics.
+- [x] Build a bounded parser and a small, typed intermediate representation.
+- [x] Reject unsupported syntax with stable diagnostics and source locations.
+- [x] Keep parsing deterministic; no eval or execution of input.
+- [ ] Run parser tests in CI and add adversarial/fuzz-style parser cases.
 
 ## Phase 5 — Electa backend
 - [ ] Implement the Electa output backend as the default target.
