@@ -11,7 +11,7 @@ These parts share the Consoler project but do not share security responsibilitie
 
 ## Status
 
-Implemented baseline: the explicit client signal API, server-side signal validation, a bounded single-process rate limiter, the consoler-js parser, and the Electa output backend are in place. The translator currently supports only console.log with string literals. The CLI, configuration loader, C/C++/Rust backends, and cross-runtime Electa integration tests are still pending. See ROADMAP.md.
+Implemented baseline: the explicit client signal API, server-side signal validation, a bounded single-process rate limiter, the consoler-js parser, and the Electa output backend are in place. The translator currently supports only console.log with string literals. The CLI, configuration loader, and C/C++/Rust backends are still pending. Generated Electa programs are checked against the Neutron reference runtime in CI. See ROADMAP.md.
 
 ## Configuration
 
