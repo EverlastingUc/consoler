@@ -19,10 +19,11 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [ ] Review API design before implementation.
 
 ## Phase 2 — Security toolkit foundation
-- [ ] Implement the minimal client integration API.
-- [ ] Keep client signals explicitly untrusted.
-- [ ] Add safe failure behavior when optional browser APIs are missing.
-- [ ] Add unit tests for normal, missing, tampered, and failing conditions.
+- [x] Implement the minimal explicit client signal API in src/index.js.
+- [x] Keep client signals explicitly untrusted and caller-triggered.
+- [x] Avoid browser API dependencies; the core API does not require optional browser APIs.
+- [x] Add unit tests for normal reporting, missing callback, invalid input, callback failure, and disposal.
+- [ ] Add server-side receiver examples and integration tests in Phase 3.
 
 ## Phase 3 — Server-side examples
 - [ ] Provide server-side validation and authorization examples.
