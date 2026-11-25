@@ -47,7 +47,7 @@ The Electa machine starts with a zeroed data tape and key zero. To emit each UTF
 4. Encode each opcode as source symbol S = opcode XOR key, then map S through the exact Electa source alphabet.
 5. Append an encoded HALT instruction.
 
-The encoder must be tested against the Electa interpreter. Current unit tests decode the emitted output-only instruction subset and check byte-for-byte output, but a direct integration test against the Neutron reference runtime remains required. Generated Electa source is capped at 1 MiB of symbols.
+The encoder must be tested against the Electa interpreter. Unit tests decode the emitted output-only instruction subset and check byte-for-byte output. CI also runs generated fixtures through the pinned Neutron reference parser and runtime. Generated Electa source is capped at 1 MiB of symbols.
 
 ## 5. Output and execution boundary
 
