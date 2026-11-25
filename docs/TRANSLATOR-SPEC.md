@@ -1,6 +1,6 @@
 # Translator Specification
 
-**Status:** Initial language and backend design. No translator implementation is claimed.
+**Status:** The bounded parser and Electa backend are implemented for this output-only subset. C, C++, Rust, configuration loading, and the CLI remain future work.
 
 ## 1. Purpose
 
@@ -47,7 +47,7 @@ The Electa machine starts with a zeroed data tape and key zero. To emit each UTF
 4. Encode each opcode as source symbol S = opcode XOR key, then map S through the exact Electa source alphabet.
 5. Append an encoded HALT instruction.
 
-The encoder must be tested against the Electa interpreter. A generated source file is not accepted as valid merely because it looks plausible.
+The encoder must be tested against the Electa interpreter. Current unit tests decode the emitted output-only instruction subset and check byte-for-byte output, but a direct integration test against the Neutron reference runtime remains required. Generated Electa source is capped at 1 MiB of symbols.
 
 ## 5. Output and execution boundary
 
