@@ -41,10 +41,11 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [ ] Run parser tests in CI and add adversarial/fuzz-style parser cases.
 
 ## Phase 5 — Electa backend
-- [ ] Implement the Electa output backend as the default target.
-- [ ] Confirm emitted syntax against the Electa language specification.
-- [ ] Add golden tests for literals, output, variables, and supported expressions.
-- [ ] Keep generated output separate from execution.
+- [x] Implement the Electa output backend as the default target for the initial output-only grammar.
+- [x] Encode source symbols using the normative Electa alphabet and stateful key update.
+- [x] Add byte-level output conformance tests for strings and output statements.
+- [x] Keep generated output separate from execution.
+- [ ] Cross-check generated fixtures against the Neutron reference runtime in a dedicated integration test.
 
 ## Phase 6 — Additional translation backends
 - [ ] Implement C output.
