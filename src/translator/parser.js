@@ -1,10 +1,14 @@
 const MAX_SOURCE_BYTES = 1_048_576;
-const WHITESPACE = new Set([" ", "\\t", "\\r", "\\n"]);
+const LF = String.fromCharCode(10);
+const CR = String.fromCharCode(13);
+const TAB = String.fromCharCode(9);
+const BACKSLASH = String.fromCharCode(92);
+const WHITESPACE = new Set([" ", TAB, CR, LF]);
 const ESCAPES = new Map([
-  ["\\\\", "\\\\"],
-  ["n", "\\n"],
-  ["r", "\\r"],
-  ["t", "\\t"],
+  [BACKSLASH, BACKSLASH],
+  ["n", LF],
+  ["r", CR],
+  ["t", TAB],
   ['"', '"'],
   ["'", "'"]
 ]);
@@ -19,7 +23,7 @@ export class ConsolerSyntaxError extends SyntaxError {
   }
 }
 
-/** Parse the intentionally small consol er-js output-only language into a frozen AST. */
+/** Parse the intentionally small consoler-js output-only language into a frozen AST. */
 export function parseConsoler(source) {
   if (typeof source !== "string") {
     throw new TypeError("Consoler source must be a string.");
@@ -35,7 +39,7 @@ export function parseConsoler(source) {
     let line = 1;
     let column = 1;
     for (let i = 0; i < at; i += 1) {
-      if (source[i] === "\\n") {
+      if (source[i] === LF) {
         line += 1;
         column = 1;
       } else {
@@ -71,10 +75,10 @@ export function parseConsoler(source) {
         index += 1;
         return value;
       }
-      if (character === "\\n" || character === "\\r") {
+      if (character === LF || character === CR) {
         fail("C004", "Line breaks are not allowed inside string literals.");
       }
-      if (character === "\\\\") {
+      if (character === BACKSLASH) {
         const escapeAt = index;
         index += 1;
         if (index >= source.length) fail("C005", "Unterminated escape sequence.", escapeAt);
