@@ -19,6 +19,10 @@
     "./server/rate-limit": {
       "types": "./src/server/rate-limit.d.ts",
       "import": "./src/server/rate-limit.js"
+    },
+    "./translator/parser": {
+      "types": "./src/translator/parser.d.ts",
+      "import": "./src/translator/parser.js"
     }
   },
   "scripts": {
