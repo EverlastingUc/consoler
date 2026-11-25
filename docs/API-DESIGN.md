@@ -1,6 +1,6 @@
 # Defensive API Design
 
-**Status:** Implemented baseline for the minimal client API in `src/index.js`; broader security features remain unimplemented.
+**Status:** The minimal client API and framework-neutral server validation/rate-limit reference utilities are implemented. Production shared-store integration and HTTP-framework examples remain future work.
 
 ## 1. Design constraints
 
