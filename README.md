@@ -11,7 +11,7 @@ These parts share the Consoler project but do not share security responsibilitie
 
 ## Status
 
-Implemented baseline: the explicit client signal API, server-side signal validation, a bounded single-process rate limiter, the consoler-js parser, and the Electa output backend are in place. The translator currently supports only console.log with string literals. The CLI, configuration loader, and C/C++/Rust backends are still pending. Generated Electa programs are checked against the Neutron reference runtime in CI. See ROADMAP.md.
+Implemented baseline: the explicit client signal API, server-side signal validation, a bounded single-process rate limiter, the consoler-js parser, and the Electa output backend are in place. The translator currently supports only console.log with string literals. A strict v1 configuration loader and a translation-only CLI are implemented. C/C++/Rust backends are still pending. Generated Electa programs are checked against the Neutron reference runtime in CI. See ROADMAP.md.
 
 ## Configuration
 
@@ -27,7 +27,23 @@ The repository includes a starter .consoler.console configuration:
 }
 ```
 
-The default target is Electa. The planned target set includes Electa, C, C++, and Rust. A target is only considered supported when its backend and tests are implemented. The config is a project file, not a browser-console setting.
+The default target is Electa. The planned target set includes Electa, C, C++, and Rust. A target is only considered supported when its backend and tests are implemented. The config is a project file, not a browser-console setting. The loader currently accepts only version 1, source `consoler-js`, and target `electa`; unknown keys and unsupported targets are rejected.
+
+## CLI
+
+After installing the package (or from this repository), translate a supported source file:
+
+```sh
+consoler translate hello.js
+```
+
+This reads `.consoler.console` from the current working directory and writes `hello.el` beside the input. Use `--config path` to select another config and `--out path` to choose the output path. Existing output is never overwritten unless `--force` is supplied.
+
+```sh
+consoler translate hello.js --config ./project.console --out ./build/hello.el
+```
+
+The CLI reports errors with a non-zero exit code. It only writes generated source; it does not invoke Electa or execute the output.
 
 ## Translation example
 
@@ -93,7 +109,7 @@ Requirements: Node.js 20 or newer.
 npm test
 ```
 
-There are no runtime dependencies. The minimal client API has Node.js tests under test/. Run them locally with `npm test`; test execution has not yet been verified in this repository session.
+There are no runtime dependencies. The minimal client API has Node.js tests under test/. Run them locally with `npm test`; The test suite includes unit tests, CLI filesystem-safety tests, and reference-runtime conformance tests in CI.
 
 ## Non-goal
 
