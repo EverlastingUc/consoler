@@ -64,6 +64,27 @@ Consoler will **not** intercept or replace the browser's native DevTools console
 
 Read SECURITY.md, docs/THREAT-MODEL.md, and docs/API-DESIGN.md before integrating security features. The initial source grammar and Electa encoding design are in docs/TRANSLATOR-SPEC.md.
 
+## Defensive client API (implemented baseline)
+
+```js
+import { createConsoler } from "consoler";
+
+const consoler = createConsoler({
+  onSignal(signal) {
+    // The application chooses its own transport and server endpoint.
+    // Treat this client-originated payload as untrusted telemetry.
+    console.info("Consoler signal received", signal.kind, signal.detailCode);
+  }
+});
+
+consoler.reportSignal("client-runtime-error", "editor.initialization-failed", "editor-page");
+
+// When the integration is no longer needed:
+consoler.dispose();
+```
+
+The callback above is illustrative. Consoler itself does not send the signal anywhere. Do not send secrets, personal data, full URLs, request bodies, or user-entered text in signal fields. See docs/API-DESIGN.md for validation rules.
+
 ## Development
 
 Requirements: Node.js 20 or newer.
@@ -72,7 +93,7 @@ Requirements: Node.js 20 or newer.
 npm test
 ```
 
-There are no runtime dependencies in the initial scaffold. As implementation begins, each feature will include focused tests and documentation.
+There are no runtime dependencies. The minimal client API has Node.js tests under test/. Run them locally with `npm test`; test execution has not yet been verified in this repository session.
 
 ## Non-goal
 
