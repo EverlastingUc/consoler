@@ -15,25 +15,20 @@ test("generated source executes in the Neutron Electa reference runtime", {
   const { parse } = await import(parserUrl.href);
   const { execute } = await import(runtimeUrl.href);
 
-  for (const input of [
-    'console.log("Hii")',
-    'console.log("")',
-    'console.log("A"); console.log("B")',
-    'console.log("Hello, π 🚀")'
-  ]) {
+  const fixtures = [
+    ['console.log("Hii")', "Hii\n"],
+    ['console.log("")', "\n"],
+    ['console.log("A"); console.log("B")', "A\nB\n"],
+    ['console.log("Hello, π 🚀")', "Hello, π 🚀\n"]
+  ];
+
+  for (const [input, expectedOutput] of fixtures) {
     const generated = emitElecta(parseConsoler(input));
     const result = execute(parse(generated));
-    const expected = input.match(/console\.log\(("|')([\s\S]*?)\1\)/g);
-    assert.ok(expected);
     assert.equal(result.status, "HALTED");
     assert.deepEqual(
       [...result.output],
-      [...new TextEncoder().encode(
-        input.includes("Hello, π 🚀") ? "Hello, π 🚀\n"
-          : input.includes('console.log("A")') ? "A\nB\n"
-          : input.includes('console.log("")') ? "\n"
-          : "Hii\n"
-      )]
+      [...new TextEncoder().encode(expectedOutput)]
     );
   }
 });
