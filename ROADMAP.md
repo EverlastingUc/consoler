@@ -10,6 +10,8 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [ ] Review the initial documentation against the implementation brief.
 
 ## Phase 1 — Threat model and API design
+- [x] Draft the initial threat model in docs/THREAT-MODEL.md.
+- [x] Propose a minimal typed API in docs/API-DESIGN.md.
 - [ ] Finalize assets, trust boundaries, abuse cases, and privacy requirements.
 - [ ] Specify a small typed security API.
 - [ ] Define development/production behavior and safe defaults.
@@ -29,6 +31,7 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [ ] Document what must never be placed in browser code.
 
 ## Phase 4 — Translator specification and parser
+- [x] Define the initial source grammar and Electa output strategy in docs/TRANSLATOR-SPEC.md.
 - [ ] Define the supported JavaScript-like grammar and semantics.
 - [ ] Build a parser and a small, typed intermediate representation.
 - [ ] Reject unsupported syntax with source locations.
