@@ -31,6 +31,10 @@
     "./config": {
       "types": "./src/config.d.ts",
       "import": "./src/config.js"
+    },
+    "./server/receiver": {
+      "types": "./src/server/receiver.d.ts",
+      "import": "./src/server/receiver.js"
     }
   },
   "scripts": {
