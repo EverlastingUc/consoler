@@ -45,7 +45,7 @@ The roadmap is incremental. A phase is complete only after its acceptance criter
 - [x] Encode source symbols using the normative Electa alphabet and stateful key update.
 - [x] Add byte-level output conformance tests for strings and output statements.
 - [x] Keep generated output separate from execution.
-- [ ] Cross-check generated fixtures against the Neutron reference runtime in a dedicated integration test.
+- [x] Cross-check generated fixtures against the pinned Neutron reference runtime in CI.
 
 ## Phase 6 — Additional translation backends
 - [ ] Implement C output.
