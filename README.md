@@ -11,7 +11,7 @@ These parts share the Consoler project but do not share security responsibilitie
 
 ## Status
 
-Early development. The repository is being established. Configuration and security design are documented first; implementation and executable tests are not complete yet. See ROADMAP.md.
+Implemented baseline: the explicit client signal API, server-side signal validation, a bounded single-process rate limiter, the consoler-js parser, and the Electa output backend are in place. The translator currently supports only console.log with string literals. The CLI, configuration loader, C/C++/Rust backends, and cross-runtime Electa integration tests are still pending. See ROADMAP.md.
 
 ## Configuration
 
@@ -29,7 +29,7 @@ The repository includes a starter .consoler.console configuration:
 
 The default target is Electa. The planned target set includes Electa, C, C++, and Rust. A target is only considered supported when its backend and tests are implemented. The config is a project file, not a browser-console setting.
 
-## Translation example (planned)
+## Translation example
 
 Input:
 
@@ -48,7 +48,7 @@ int main() {
 }
 ```
 
-The exact accepted syntax and output are governed by the translator specification. Unsupported syntax must produce a clear error instead of silently generating incorrect code. Generated code is never run automatically.
+The current parser accepts only the output-only grammar in docs/TRANSLATOR-SPEC.md. The Electa backend emits encoded .el source from the parsed program; it does not execute it. Unsupported syntax produces a diagnostic rather than guessed output. C++ is an illustrative future backend, not a currently supported target.
 
 Consoler will **not** intercept or replace the browser's native DevTools console. Use its own CLI/API workflow to translate source files.
 
