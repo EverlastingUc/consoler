@@ -60,7 +60,11 @@ The translator is a separate developer tool. Its output must not be treated as a
 7. Translation is deterministic source generation, not execution.
 8. Unsupported syntax fails closed with actionable diagnostics.
 
-## 7. Open design questions
+## 7. Receiver boundary
+
+The optional Fetch API receiver authenticates through a host-supplied callback, rejects malformed/oversized payloads, validates an allowlisted schema, and rate-limits using the authenticated principal. The host application remains responsible for authentication correctness, CSRF/origin policy, distributed rate limiting, persistence, and retention. Receiver failures are fail-closed and do not grant privileges.
+
+## 8. Open design questions
 
 - Which exact integrity events, if any, provide measurable defensive value without excessive privacy cost?
 - What server event schema and replay controls should the reference implementation use?
